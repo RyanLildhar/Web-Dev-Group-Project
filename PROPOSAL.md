@@ -11,7 +11,7 @@
 
 ## Topic
 
-**App name:** _[App name]_, a periodic table explorer.
+**App name:** _Element Bohrd_, a periodic table explorer.
 
 Our project is a website about the elements of the periodic table. A lot of periodic table sites have too much on the screen, are hard to use on a phone, and only use colour to show the type of each element, which is a problem for colour-blind people. We want to make one that is easier to use, mostly for students.
 
