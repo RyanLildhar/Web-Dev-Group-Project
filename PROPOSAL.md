@@ -102,4 +102,6 @@ The whole team works on the main setup together. This is the routing between pag
 **If we have extra time:** a quiz or flashcard mode, and a small backend.
 
 ## Wireframes
+<img width="2160" height="1682" alt="IMG_3439" src="https://github.com/user-attachments/assets/33b1ba45-fcda-4e37-b5bd-19a7a657c5bb" />
+
 
