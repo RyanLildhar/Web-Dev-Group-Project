@@ -61,6 +61,8 @@ main {
   border: 1px solid var(--board-line);
   border-radius: 4px;
   text-align: center;
+  padding: 1rem;
+  cursor: pointer;
 }
 
 .card a {
