@@ -48,6 +48,8 @@ export default function App() {
             <h1>{currentElement.name}</h1>
             <p>Atomic Number: {currentElement.number}</p>
             <p>Atomic Mass: {currentElement.atomic_mass}</p>
+            <p>Melting point: {currentElement.melt} k</p>
+            <p>Boiling point: {currentElement.boil} k</p>
             <p>Category: {currentElement.category}</p>
             <p>Summary: {currentElement.summary}</p>
             <FavouriteButton
