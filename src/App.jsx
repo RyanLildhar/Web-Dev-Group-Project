@@ -5,6 +5,7 @@ import Card from './Card'
 import FavouriteButton from './FavouriteButton'
 import FavouritesPage from './FavouritesPage'
 import useFavourites from './hooks/useFavourites'
+import {useElementFilters} from './hooks/useElementFilters'
 
 export default function App() {
   // useState for track view, (null) state is no element selected 
@@ -14,6 +15,8 @@ export default function App() {
   // which page: 'home' or 'favourites'
   const [view, setView] = useState('home');
   const { favourites, isFavourite, toggleFavourite } = useFavourites();
+  // search state and filtering (hook)
+  const {results: visibleElements, query, setQuery} = useElementFilters(elements);
 
   const goTo = (e, nextView) => {
     e.preventDefault();
@@ -72,8 +75,15 @@ export default function App() {
           /* grid view (home/null)  */
           <>
             <h1>Elements of the Periodic Table</h1>
+             <label htmlFor="search">Search Elements</label>
+               <input
+                id="search"
+                type="text"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                />
             <section className="grid">
-              {elements.map((element) => (
+              {visibleElements.map((element) => (
                 <Card
                   key={element.number}
                   element={element}
@@ -83,6 +93,9 @@ export default function App() {
                 />
               ))}
             </section>
+            {elements.length > 0 && visibleElements.length === 0 && (
+                <p role="status">No elements match "{query}".</p>
+            )}
           </>
         )}
       </main>
