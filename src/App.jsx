@@ -8,6 +8,8 @@ export default function App() {
   const [currentElement, setCurrentElement] = useState(null);
   // useState for the element arrays from JSON
   const [elements, setElements] = useState([]);
+  // useState for search
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     fetch('/PeriodicTableJSON.json')
@@ -43,7 +45,15 @@ export default function App() {
           /* grid view (home/null)  */
           <>
             <h1>Elements of the Periodic Table</h1>
-            <section className="grid">
+               <label htmlFor="search">Search Elements</label>
+               <input
+                 id="search"
+                 type="text"
+                 value={query}
+                 onChange={(event) => setQuery(event.target.value)}
+               />
+               <section className="grid">
+
               {elements.map((element) => (
                 <Card key={element.number} element={element} onClick={() => setCurrentElement(element)}/>
               ))}              
