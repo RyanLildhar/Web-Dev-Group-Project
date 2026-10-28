@@ -36,6 +36,7 @@ function createRow(els, start, end) {
 /**@param {Dict[]} elements*/
 export default function Grid(e) {
     const sblock = <table>
+        <tbody>
         {createRow(e, 1, 1)}
         {createRow(e, 3, 4)}
         {createRow(e, 11, 12)}
@@ -43,18 +44,22 @@ export default function Grid(e) {
         {createRow(e, 37, 38)}
         {createRow(e, 55, 56)}
         {createRow(e, 87, 88)}
+        </tbody>
     </table>
 
     const dblock = <table>
+        <tbody>
         {createRow(e, 21, 30)}
         {createRow(e, 39, 48)}
         {createRow(e, 71, 80)}
         {createRow(e, 103, 112)}
+        </tbody>
     </table>
 
     const pblock = <table>
+        <tbody>
         <tr>
-            <td colspan='5'></td>
+            <td colSpan='5'></td>
             {cards(getElements(e, 2, 2)).map((el) => <td>{el}</td>)}
         </tr>
         {createRow(e, 5, 10)}
@@ -63,14 +68,17 @@ export default function Grid(e) {
         {createRow(e, 49, 54)}
         {createRow(e, 81, 86)}
         {createRow(e, 113, 118)}
+        </tbody>
     </table>
 
     const fblock = <table>
+        <tbody>
         {createRow(e, 57, 70)}
         {createRow(e, 89, 102)}
+        </tbody>
     </table>
 
-    const out = <div className='grid'>
+    const out = <div>
         <div className='row'>
             <div className='column'>
                 {sblock}
