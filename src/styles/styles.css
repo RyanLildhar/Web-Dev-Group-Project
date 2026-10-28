@@ -88,3 +88,20 @@ main {
   border: 1px solid var(--board-line);
   padding: 1.5rem;
 }
+
+.row{
+  display:flex;
+  width:max-content;
+  align-items:flex-end
+}
+
+.column{
+  float: left;
+  padding: 0.5rem
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}

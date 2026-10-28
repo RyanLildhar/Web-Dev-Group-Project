@@ -5,6 +5,7 @@ import Card from './Card'
 import FavouriteButton from './FavouriteButton'
 import FavouritesPage from './FavouritesPage'
 import useFavourites from './hooks/useFavourites'
+import Grid from './Grid'
 
 export default function App() {
   // useState for track view, (null) state is no element selected 
@@ -71,15 +72,7 @@ export default function App() {
           <>
             <h1>Elements of the Periodic Table</h1>
             <section className="grid">
-              {elements.map((element) => (
-                <Card
-                  key={element.number}
-                  element={element}
-                  onClick={() => setCurrentElement(element)}
-                  isFavourite={isFavourite(element.number)}
-                  onToggleFavourite={toggleFavourite}
-                />
-              ))}
+              {Grid(elements)}
             </section>
           </>
         )}
