@@ -1,18 +1,13 @@
-import { useState, useEffect } from 'react'
 import Card from './Card'
-import FavouriteButton from './FavouriteButton'
-import FavouritesPage from './FavouritesPage'
-import useFavourites from './hooks/useFavourites'
 
 /**@param {Dict[]} elements */
-function cards(elements) {
-    const { favourites, isFavourite, toggleFavourite } = useFavourites();
+function cards(elements, cardActions) {
     return elements.map((element) => <Card
         key={element.number}
         element={element}
-        onClick={() => setCurrentElement(element)}
-        isFavourite={isFavourite(element.number)}
-        onToggleFavourite={toggleFavourite}
+        onClick={() => cardActions.setCurrentElement(element)}
+        isFavourite={cardActions.isFavourite(element.number)}
+        onToggleFavourite={cardActions.toggleFavourite}
     />)
 }
 
@@ -29,30 +24,30 @@ function getElements(els, ...args) {
     return elements.filter((e) => ts.includes(e.number))
 }
 
-function createRow(els, start, end) {
-    return <tr>{cards(getElements(els, start, end)).map((el) => <td>{el}</td>)}</tr>
+function createRow(els, start, end, cardActions) {
+    return <tr>{cards(getElements(els, start, end), cardActions).map((el) => <td key={el.key}>{el}</td>)}</tr>
 }
 
 /**@param {Dict[]} elements*/
-export default function Grid(e) {
+export default function Grid({ elements: e, cardActions }) {
     const sblock = <table>
         <tbody>
-        {createRow(e, 1, 1)}
-        {createRow(e, 3, 4)}
-        {createRow(e, 11, 12)}
-        {createRow(e, 19, 20)}
-        {createRow(e, 37, 38)}
-        {createRow(e, 55, 56)}
-        {createRow(e, 87, 88)}
+        {createRow(e, 1, 1, cardActions)}
+        {createRow(e, 3, 4, cardActions)}
+        {createRow(e, 11, 12, cardActions)}
+        {createRow(e, 19, 20, cardActions)}
+        {createRow(e, 37, 38, cardActions)}
+        {createRow(e, 55, 56, cardActions)}
+        {createRow(e, 87, 88, cardActions)}
         </tbody>
     </table>
 
     const dblock = <table>
         <tbody>
-        {createRow(e, 21, 30)}
-        {createRow(e, 39, 48)}
-        {createRow(e, 71, 80)}
-        {createRow(e, 103, 112)}
+        {createRow(e, 21, 30, cardActions)}
+        {createRow(e, 39, 48, cardActions)}
+        {createRow(e, 71, 80, cardActions)}
+        {createRow(e, 103, 112, cardActions)}
         </tbody>
     </table>
 
@@ -60,21 +55,21 @@ export default function Grid(e) {
         <tbody>
         <tr>
             <td colSpan='5'></td>
-            {cards(getElements(e, 2, 2)).map((el) => <td>{el}</td>)}
+            {cards(getElements(e, 2, 2), cardActions).map((el) => <td key={el.key}>{el}</td>)}
         </tr>
-        {createRow(e, 5, 10)}
-        {createRow(e, 13, 18)}
-        {createRow(e, 31, 36)}
-        {createRow(e, 49, 54)}
-        {createRow(e, 81, 86)}
-        {createRow(e, 113, 118)}
+        {createRow(e, 5, 10, cardActions)}
+        {createRow(e, 13, 18, cardActions)}
+        {createRow(e, 31, 36, cardActions)}
+        {createRow(e, 49, 54, cardActions)}
+        {createRow(e, 81, 86, cardActions)}
+        {createRow(e, 113, 118, cardActions)}
         </tbody>
     </table>
 
     const fblock = <table>
         <tbody>
-        {createRow(e, 57, 70)}
-        {createRow(e, 89, 102)}
+        {createRow(e, 57, 70, cardActions)}
+        {createRow(e, 89, 102, cardActions)}
         </tbody>
     </table>
 

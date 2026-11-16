@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import logo from './assets/atom-logo.png'
 import './styles/styles.css'
-import Card from './Card'
+// import Card from './Card'
 import FavouriteButton from './FavouriteButton'
 import FavouritesPage from './FavouritesPage'
 import useFavourites from './hooks/useFavourites'
 import Grid from './Grid'
+import {useElementFilters} from './hooks/useElementFilters'
 
 export default function App() {
   // useState for track view, (null) state is no element selected 
@@ -15,6 +16,8 @@ export default function App() {
   // which page: 'home' or 'favourites'
   const [view, setView] = useState('home');
   const { favourites, isFavourite, toggleFavourite } = useFavourites();
+  // search state and filtering (hook)
+  const {results: visibleElements, query, setQuery} = useElementFilters(elements);
 
   const goTo = (e, nextView) => {
     e.preventDefault();
@@ -49,6 +52,8 @@ export default function App() {
             <h1>{currentElement.name}</h1>
             <p>Atomic Number: {currentElement.number}</p>
             <p>Atomic Mass: {currentElement.atomic_mass}</p>
+            <p>Melting point: {currentElement.melt} k</p>
+            <p>Boiling point: {currentElement.boil} k</p>
             <p>Category: {currentElement.category}</p>
             <p>Summary: {currentElement.summary}</p>
             <FavouriteButton
@@ -70,10 +75,40 @@ export default function App() {
         ) : (
           /* grid view (home/null)  */
           <>
-            <h1>Elements of the Periodic Table</h1>
-            <section className="grid">
-              {Grid(elements)}
+            <h1 style={{ textAlign: 'center' }}>Elements of the Periodic Table</h1>
+            <div className='table-container'>
+              <div className='search-bar'>
+                <label htmlFor="search">Search Elements </label>
+               <input
+                id="search"
+                type="text"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                />
+              </div>
+              <section className="periodic-table">
+              <Grid 
+                elements={visibleElements} 
+                cardActions={{ setCurrentElement, isFavourite, toggleFavourite}}
+              />
             </section>
+            </div>
+          
+            {/* <section className="grid">
+              {visibleElements.map((element) => (
+                <Card
+                  key={element.number}
+                  element={element}
+                  onClick={() => setCurrentElement(element)}
+                  isFavourite={isFavourite(element.number)}
+                  onToggleFavourite={toggleFavourite}
+                />
+              ))}
+            </section> */}
+            
+            {elements.length > 0 && visibleElements.length === 0 && (
+                <p role="status">No elements match "{query}".</p>
+            )}
           </>
         )}
       </main>
