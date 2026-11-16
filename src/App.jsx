@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import logo from './assets/atom-logo.png'
 import './styles/styles.css'
-import Card from './Card'
+// import Card from './Card'
 import FavouriteButton from './FavouriteButton'
 import FavouritesPage from './FavouritesPage'
 import useFavourites from './hooks/useFavourites'
+import Grid from './Grid'
 import {useElementFilters} from './hooks/useElementFilters'
 
 export default function App() {
@@ -74,15 +75,26 @@ export default function App() {
         ) : (
           /* grid view (home/null)  */
           <>
-            <h1>Elements of the Periodic Table</h1>
-             <label htmlFor="search">Search Elements</label>
+            <h1 style={{ textAlign: 'center' }}>Elements of the Periodic Table</h1>
+            <div className='table-container'>
+              <div className='search-bar'>
+                <label htmlFor="search">Search Elements </label>
                <input
                 id="search"
                 type="text"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 />
-            <section className="grid">
+              </div>
+              <section className="periodic-table">
+              <Grid 
+                elements={visibleElements} 
+                cardActions={{ setCurrentElement, isFavourite, toggleFavourite}}
+              />
+            </section>
+            </div>
+          
+            {/* <section className="grid">
               {visibleElements.map((element) => (
                 <Card
                   key={element.number}
@@ -92,7 +104,8 @@ export default function App() {
                   onToggleFavourite={toggleFavourite}
                 />
               ))}
-            </section>
+            </section> */}
+            
             {elements.length > 0 && visibleElements.length === 0 && (
                 <p role="status">No elements match "{query}".</p>
             )}
