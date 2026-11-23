@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import logo from './assets/atom-logo.png'
 import './styles/styles.css'
-// import Card from './Card'
+import Card from './Card'
 import FavouriteButton from './FavouriteButton'
 import FavouritesPage from './FavouritesPage'
 import useFavourites from './hooks/useFavourites'
 import Grid from './Grid'
-import {useElementFilters} from './hooks/useElementFilters'
+import {useElementFilters,SORT_OPTIONS,DEFAULT_SORT} from './hooks/useElementFilters'
 
 export default function App() {
   // useState for track view, (null) state is no element selected 
@@ -17,7 +17,11 @@ export default function App() {
   const [view, setView] = useState('home');
   const { favourites, isFavourite, toggleFavourite } = useFavourites();
   // search state and filtering (hook)
-  const {results: visibleElements, query, setQuery} = useElementFilters(elements);
+  const {results: visibleElements, query, setQuery, options,
+          reset, category, setCategory, phase, setPhase, period,
+          setPeriod, sortKey, setSortKey, sortDirection,setSortDirection,
+         }= useElementFilters(elements);
+  const isSorted = sortKey !== DEFAULT_SORT || sortDirection !== 'asc';
 
   const goTo = (e, nextView) => {
     e.preventDefault();
@@ -86,12 +90,68 @@ export default function App() {
                 onChange={(event) => setQuery(event.target.value)}
                 />
               </div>
+              <div className="filter-bar">
+                <label>
+                  Category
+                  <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <option value="">Any</option>
+                    {options.categories.map((c) => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </label>
+
+                <label>
+                  Phase
+                  <select value={phase} onChange={(e) => setPhase(e.target.value)}>
+                    <option value="">Any</option>
+                    {options.phases.map((p) => <option key={p} value={p}>{p}</option>)}
+                  </select>
+                </label>
+
+                <label>
+                  Period
+                  <select value={period} onChange={(e) => setPeriod(e.target.value)}>
+                    <option value="">Any</option>
+                    {options.periods.map((p) => <option key={p} value={p}>{p}</option>)}
+                  </select>
+                </label>
+
+                <label>
+                  Sort by
+                  <select value={sortKey} onChange={(e) => setSortKey(e.target.value)}>
+                    {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                  </select>
+                </label>
+
+                <label>
+                  Order
+                  <select value={sortDirection} onChange={(e) => setSortDirection(e.target.value)}>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                  </select>
+                </label>
+
+                <button type="button" onClick={reset}>Clear filters</button>
+              </div>
+              {isSorted ? (
+                <section className="grid">
+                  {visibleElements.map((element) => (
+                    <Card
+                      key={element.number}
+                      element={element}
+                      onClick={() => setCurrentElement(element)}
+                      isFavourite={isFavourite(element.number)}
+                      onToggleFavourite={toggleFavourite}
+                    />
+                  ))}
+                </section>
+              ) : (
               <section className="periodic-table">
               <Grid 
                 elements={visibleElements} 
                 cardActions={{ setCurrentElement, isFavourite, toggleFavourite}}
               />
             </section>
+            )}
             </div>
           
             {/* <section className="grid">
@@ -105,9 +165,14 @@ export default function App() {
                 />
               ))}
             </section> */}
-            
             {elements.length > 0 && visibleElements.length === 0 && (
-                <p role="status">No elements match "{query}".</p>
+              <div role="status" className="no-results">
+                <p>
+                  No elements match
+                  {query.trim() !== '' ? ` "${query.trim()}"` : ' these filters'}.
+                </p>
+                <button type="button" onClick={reset}>Clear filters</button>
+              </div>
             )}
           </>
         )}

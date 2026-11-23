@@ -138,3 +138,17 @@ main {
 .search-bar {
   padding: 0 0.5rem 0.5rem 0.5rem;
 }
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  margin: 1rem 0;
+}
+
+.filter-bar label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
