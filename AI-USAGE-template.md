@@ -32,16 +32,16 @@ Also drop a marker where the code lives: `// AI-assisted - see AI-USAGE.md #<n>`
 
 <!-- Entries go below, newest last. Example: -->
 
-### #1 - Generate a price-formatting helper
-- **Date:** 2026-03-30
-- **Member:** Jane Doe
-- **Tool / model:** free-tier assistant
-- **Files:** `src/utils/format.js`
+### #1 - Compare Modal Implementation
+- **Date:** 2026-11-22
+- **Member:** Clinton Paul-Chinka
+- **Tool / model:** Gemini free-tier assistant
+- **Files:** `src/CompareModal.jsx`,`src/App.jsx`,`src/Card.jsx`,`src/Grid.jsx`,`src/styles/styles.css`
 - **Prompt (verbatim):**
 
+  
   ```
-  Write a JavaScript function formatPrice(cents) that returns a CAD string like "$12.50".
+  write logic to implement a modal when the 'compare-tool' button is clicked, toggling a selection mode on the grid cards to pick two elements. Upon selection of    the elements, then an appropriately sized modal dialog renders the detail view of each element in a table.
   ```
 
-- **What it produced & what I changed:** Kept the logic; renamed the parameter to match
-  our code and added a test. Verified the rounding on a few values.
+- **What it produced & what I changed:**  Produced CompareModal.jsx logic and styling,  along with props to match. I kept the logic, props and styling. Didn't have to reprompt or make any edits.
