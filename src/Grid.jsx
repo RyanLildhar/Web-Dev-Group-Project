@@ -8,6 +8,8 @@ function cards(elements, cardActions) {
         onClick={() => cardActions.setCurrentElement(element)}
         isFavourite={cardActions.isFavourite(element.number)}
         onToggleFavourite={cardActions.toggleFavourite}
+        isCompareMode={cardActions.isCompareMode}
+        isSelected={cardActions.isSelectedForCompare?.(element.number)}
     />)
 }
 

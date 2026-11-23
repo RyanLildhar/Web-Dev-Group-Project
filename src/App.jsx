@@ -7,6 +7,7 @@ import FavouritesPage from './FavouritesPage'
 import useFavourites from './hooks/useFavourites'
 import Grid from './Grid'
 import {useElementFilters} from './hooks/useElementFilters'
+import CompareModal from './CompareModal'
 
 export default function App() {
   // useState for track view, (null) state is no element selected 
@@ -18,6 +19,39 @@ export default function App() {
   const { favourites, isFavourite, toggleFavourite } = useFavourites();
   // search state and filtering (hook)
   const {results: visibleElements, query, setQuery} = useElementFilters(elements);
+
+  // compare state
+  const [isCompareMode, setIsCompareMode] = useState(false);
+  const [selectedForCompare, setSelectedForCompare] = useState([]);
+
+  const toggleCompareMode = () => {
+    setIsCompareMode((prev) => !prev);
+    setSelectedForCompare([]);
+  };
+
+  const resetCompare = () => {
+    setIsCompareMode(false);
+    setSelectedForCompare([]);
+  };
+
+  const handleElementClick = (element) => {
+    if (!isCompareMode) {
+      setCurrentElement(element);
+      return;
+    }
+
+    setSelectedForCompare((prev) => {
+      if (prev.some((item) => item.number === element.number)) {
+        return prev.filter((item) => item.number !== element.number);
+      }
+      if (prev.length >= 2) return prev;
+      return [...prev, element];
+    });
+  };
+
+  const isSelectedForCompare = (number) =>
+    selectedForCompare.some((item) => item.number === number);
+
 
   const goTo = (e, nextView) => {
     e.preventDefault();
@@ -33,7 +67,7 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <div className={isCompareMode ? 'compare-mode-active' : undefined}>
       <header className="site-header">
         <a className="brand" href="#" onClick={(e) => goTo(e, 'home')}>
           <img src={logo} alt="free atom clipart logo" />
@@ -73,7 +107,6 @@ export default function App() {
             onToggleFavourite={toggleFavourite}
           />
         ) : (
-          /* grid view (home/null)  */
           <>
             <h1 style={{ textAlign: 'center' }}>Elements of the Periodic Table</h1>
             <div className='table-container'>
@@ -86,25 +119,28 @@ export default function App() {
                 onChange={(event) => setQuery(event.target.value)}
                 />
               </div>
+              <div className='compare-tool'>
+                <button 
+                  type='button'
+                  aria-pressed={isCompareMode} 
+                  onClick={toggleCompareMode}
+                >
+                  {isCompareMode ? 'Cancel Compare' : 'Compare'}
+                </button>
+                {isCompareMode && (
+                  <span className='compare-hint'>
+                    Select {2 - selectedForCompare.length} element
+                    {2 - selectedForCompare.length === 1 ? '' : 's'}
+                  </span>
+                )}
+              </div>
               <section className="periodic-table">
               <Grid 
                 elements={visibleElements} 
-                cardActions={{ setCurrentElement, isFavourite, toggleFavourite}}
+                cardActions={{ setCurrentElement: handleElementClick, isFavourite, toggleFavourite, isCompareMode, isSelectedForCompare}}
               />
             </section>
             </div>
-          
-            {/* <section className="grid">
-              {visibleElements.map((element) => (
-                <Card
-                  key={element.number}
-                  element={element}
-                  onClick={() => setCurrentElement(element)}
-                  isFavourite={isFavourite(element.number)}
-                  onToggleFavourite={toggleFavourite}
-                />
-              ))}
-            </section> */}
             
             {elements.length > 0 && visibleElements.length === 0 && (
                 <p role="status">No elements match "{query}".</p>
@@ -112,6 +148,12 @@ export default function App() {
           </>
         )}
       </main>
+      {selectedForCompare.length === 2 && (
+        <CompareModal
+          elements={selectedForCompare}
+          onClose={resetCompare}
+        />
+      )}
     </div>
   )
 }
