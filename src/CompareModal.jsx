@@ -1,3 +1,4 @@
+//AI Usage... see AI-USAGE.md
 import { useEffect } from 'react';
 
 export default function CompareModal({ elements, onClose }) {
