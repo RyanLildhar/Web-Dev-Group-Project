@@ -1,9 +1,23 @@
-import FavouriteButton from './FavouriteButton'
+import FavouriteButton from '../features/favourites/components/FavouriteButton'
 
-export default function Card({ element, onClick, isFavourite, onToggleFavourite }) {
+export default function Card({ element, onClick, isFavourite, onToggleFavourite, isCompareMode = false, isSelected = false, isTopRow = false, isLeftEdge = false, isRightEdge = false,}) {
+  const previewClassName = [
+    'card-preview',
+    isTopRow ? 'card-preview--below' : '',
+    isLeftEdge ? 'card-preview--left' : '',
+    isRightEdge ? 'card-preview--right' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    // "card" now also acts as the anchor point for the hover preview (see styles.css)
-    <article className="card" onClick={onClick} style={{ cursor: 'pointer' }}>
+    <article
+      className={`card ${isCompareMode ? 'card-selectable' : ''} ${
+        isSelected ? 'card-selected' : ''
+      }`.trim()}
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
+    >
       <span className="symbol">{element.symbol}</span>
       <span className="name">{element.name}</span>
       <span className="num">{element.number}</span>
@@ -16,7 +30,7 @@ export default function Card({ element, onClick, isFavourite, onToggleFavourite 
 
       {/* Hover preview: hidden by default, shown with CSS when the card is hovered.
           role="tooltip" tells screen readers this is supplementary info. */}
-      <div className="card-preview" role="tooltip">
+      <div className={previewClassName} role="tooltip">
         {/* Element name + category as a small header */}
         <strong className="preview-title">{element.name}</strong>
         <span className="preview-category">{element.category}</span>

@@ -1,4 +1,4 @@
-import Card from './Card'
+import Card from '../../components/Card'
 
 export default function FavouritesPage({ elements, favourites, onSelect, onToggleFavourite }) {
   // keep favourites in the order the user saved them
