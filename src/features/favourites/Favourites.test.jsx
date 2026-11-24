@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import FavouriteButton from './components/FavouriteButton';
 import FavouritesPage from './FavouritesPage';
 import useFavourites from './hooks/useFavourites';
-
+// AI-assisted - see AI-USAGE.md #3
 const STORAGE_KEY = 'elementBohrd:favourites';
 
 // vitest doesn't auto-clean rendered components, so do it after every test
