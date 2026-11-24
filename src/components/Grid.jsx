@@ -1,8 +1,8 @@
 import Card from './Card'
 
 /**@param {Dict[]} elements */
-function cards(elements, cardActions) {
-    return elements.map((element) => <Card
+function cards(elements, cardActions, { isTopRow = false, isLeftEdge = false, isRightEdge = false } = {}) {
+    return elements.map((element, index) => <Card
         key={element.number}
         element={element}
         onClick={() => cardActions.setCurrentElement(element)}
@@ -10,6 +10,9 @@ function cards(elements, cardActions) {
         onToggleFavourite={cardActions.toggleFavourite}
         isCompareMode={cardActions.isCompareMode}
         isSelected={cardActions.isSelectedForCompare?.(element.number)}
+        isTopRow={isTopRow}
+        isLeftEdge={isLeftEdge && index === 0}
+        isRightEdge={isRightEdge && index === elements.length - 1}
     />)
 }
 
@@ -26,21 +29,21 @@ function getElements(els, ...args) {
     return elements.filter((e) => ts.includes(e.number))
 }
 
-function createRow(els, start, end, cardActions) {
-    return <tr>{cards(getElements(els, start, end), cardActions).map((el) => <td key={el.key}>{el}</td>)}</tr>
+function createRow(els, start, end, cardActions, edgeFlags = {}) {
+    return <tr>{cards(getElements(els, start, end), cardActions, edgeFlags).map((el) => <td key={el.key}>{el}</td>)}</tr>
 }
 
 /**@param {Dict[]} elements*/
 export default function Grid({ elements: e, cardActions }) {
     const sblock = <table>
         <tbody>
-        {createRow(e, 1, 1, cardActions)}
-        {createRow(e, 3, 4, cardActions)}
-        {createRow(e, 11, 12, cardActions)}
-        {createRow(e, 19, 20, cardActions)}
-        {createRow(e, 37, 38, cardActions)}
-        {createRow(e, 55, 56, cardActions)}
-        {createRow(e, 87, 88, cardActions)}
+        {createRow(e, 1, 1, cardActions, { isTopRow: true, isLeftEdge: true })}
+        {createRow(e, 3, 4, cardActions, { isLeftEdge: true })}
+        {createRow(e, 11, 12, cardActions, { isLeftEdge: true })}
+        {createRow(e, 19, 20, cardActions, { isLeftEdge: true })}
+        {createRow(e, 37, 38, cardActions, { isLeftEdge: true })}
+        {createRow(e, 55, 56, cardActions, { isLeftEdge: true })}
+        {createRow(e, 87, 88, cardActions, { isLeftEdge: true })}
         </tbody>
     </table>
 
@@ -57,21 +60,21 @@ export default function Grid({ elements: e, cardActions }) {
         <tbody>
         <tr>
             <td colSpan='5'></td>
-            {cards(getElements(e, 2, 2), cardActions).map((el) => <td key={el.key}>{el}</td>)}
+            {cards(getElements(e, 2, 2), cardActions, { isTopRow: true, isRightEdge: true }).map((el) => <td key={el.key}>{el}</td>)}
         </tr>
-        {createRow(e, 5, 10, cardActions)}
-        {createRow(e, 13, 18, cardActions)}
-        {createRow(e, 31, 36, cardActions)}
-        {createRow(e, 49, 54, cardActions)}
-        {createRow(e, 81, 86, cardActions)}
-        {createRow(e, 113, 118, cardActions)}
+        {createRow(e, 5, 10, cardActions, { isRightEdge: true })}
+        {createRow(e, 13, 18, cardActions, { isRightEdge: true })}
+        {createRow(e, 31, 36, cardActions, { isRightEdge: true })}
+        {createRow(e, 49, 54, cardActions, { isRightEdge: true })}
+        {createRow(e, 81, 86, cardActions, { isRightEdge: true })}
+        {createRow(e, 113, 118, cardActions, { isRightEdge: true })}
         </tbody>
     </table>
 
     const fblock = <table>
         <tbody>
-        {createRow(e, 57, 70, cardActions)}
-        {createRow(e, 89, 102, cardActions)}
+        {createRow(e, 57, 70, cardActions, { isLeftEdge: true, isRightEdge: true })}
+        {createRow(e, 89, 102, cardActions, { isLeftEdge: true, isRightEdge: true })}
         </tbody>
     </table>
 

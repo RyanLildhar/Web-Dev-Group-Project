@@ -97,7 +97,7 @@ export default function App() {
               onToggle={toggleFavourite}
             />
             <div className="detail-quiz-wrapper">
-              <ElementQuiz elementKey="{currentElement.number}"/>
+              <ElementQuiz elementKey={currentElement.number}/>
               </div>
             <p><a href="#" onClick={(e) => { e.preventDefault(); setCurrentElement(null); }}>
               {view === 'favourites' ? 'Back to Favourites' : 'Return Home'}
