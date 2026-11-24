@@ -15,8 +15,8 @@ export default function Card({ element, onClick, isFavourite, onToggleFavourite,
       className={`card ${isCompareMode ? 'card-selectable' : ''} ${
         isSelected ? 'card-selected' : ''
       }`.trim()}
-      onClick={onClick}
       data-category={element.category}
+      onClick={onClick}
       style={{ cursor: 'pointer' }}
     >
       <span className="symbol">{element.symbol}</span>
