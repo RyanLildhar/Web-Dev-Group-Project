@@ -45,3 +45,20 @@ Also drop a marker where the code lives: `// AI-assisted - see AI-USAGE.md #<n>`
   ```
 
 - **What it produced & what I changed:**  Produced CompareModal.jsx logic and styling,  along with props to match. I kept the logic, props and edited the styling to fix the modal table header.
+
+
+### #2 - Compare Modal Unit Testing
+- **Date:** 2026-11-24
+- **Member:** Clinton Paul-Chinka
+- **Tool / model:** Gemini free-tier assistant
+- **Files:** `src/CompareModal.jsx`
+- **Prompt (verbatim):**
+  
+  ```
+  Write a simple, focused test for the React component below using Vitest and React Testing Library in a Vite project.
+  What the feature should do:
+    - When clicked, a selection of two elements should be available, 
+  Keep the test clean, avoid over-mocking internal implementation details, and tell me briefly if I need any extra test setup or packages.
+  ```
+
+- **What it produced & what I changed:**  Produced CompareModal.test.jsx, I did not edit the file but I installed and added dev dependencies and configured the Vite config file
