@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import logo from './assets/atom-logo.png'
 import './styles/styles.css'
-// import Card from './Card'
-import FavouriteButton from './FavouriteButton'
-import FavouritesPage from './FavouritesPage'
-import useFavourites from './hooks/useFavourites'
-import Grid from './Grid'
+import FavouriteButton from './features/favourites/components/FavouriteButton'
+import FavouritesPage from './features/favourites/FavouritesPage'
+import useFavourites from './features/favourites/hooks/useFavourites'
+import Grid from './components/Grid'
 import {useElementFilters} from './hooks/useElementFilters'
-import CompareModal from './CompareModal'
+import CompareModal from './features/compare/CompareModal'
+import ElementQuiz from './features/quiz/ElementQuiz'
 
 export default function App() {
   // useState for track view, (null) state is no element selected 
@@ -59,6 +59,7 @@ export default function App() {
     setView(nextView);
   };
 
+  // fetch elements from JSON file
   useEffect(() => {
     fetch('/PeriodicTableJSON.json')
       .then((response) => response.json())
@@ -95,6 +96,9 @@ export default function App() {
               isFavourite={isFavourite(currentElement.number)}
               onToggle={toggleFavourite}
             />
+            <div className="detail-quiz-wrapper">
+              <ElementQuiz elementKey="{currentElement.number}"/>
+              </div>
             <p><a href="#" onClick={(e) => { e.preventDefault(); setCurrentElement(null); }}>
               {view === 'favourites' ? 'Back to Favourites' : 'Return Home'}
             </a></p>

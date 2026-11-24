@@ -44,4 +44,4 @@ Also drop a marker where the code lives: `// AI-assisted - see AI-USAGE.md #<n>`
   write logic to implement a modal when the 'compare-tool' button is clicked, toggling a selection mode on the grid cards to pick two elements. Upon selection of    the elements, then an appropriately sized modal dialog renders the detail view of each element in a table.
   ```
 
-- **What it produced & what I changed:**  Produced CompareModal.jsx logic and styling,  along with props to match. I kept the logic, props and styling. Didn't have to reprompt or make any edits.
+- **What it produced & what I changed:**  Produced CompareModal.jsx logic and styling,  along with props to match. I kept the logic, props and edited the styling to fix the modal table header.

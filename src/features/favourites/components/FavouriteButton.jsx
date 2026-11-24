@@ -1,4 +1,3 @@
-import './styles/favourites.css'
 
 // Shows state with an icon AND text (not colour alone) for accessibility.
 export default function FavouriteButton({ element, isFavourite, onToggle }) {

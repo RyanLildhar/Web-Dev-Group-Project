@@ -1,4 +1,4 @@
-import FavouriteButton from './FavouriteButton'
+import FavouriteButton from '../features/favourites/components/FavouriteButton'
 
 export default function Card({ element, onClick, isFavourite, onToggleFavourite, isCompareMode = false, isSelected = false,}) {
   return (
