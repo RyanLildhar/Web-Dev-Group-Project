@@ -1,4 +1,3 @@
-# Team & Topic - CSCI3230U
 ## Team Name: Arc Labs 
 ## Members
 * Ryan Lildhar
@@ -10,9 +9,9 @@
 ## Topic (Domain)
 ### Elements of the periodic table
 
-Candidate data source(s): 
+Data source(s): 
 * [Bowserinator Periodic Table](https://github.com/Bowserinator/Periodic-Table-JSON)
-* [ApiVerve](https://apiverve.com/marketplace/periodictable)
+* [PeriodicTableOfElements](https://periodictableofelements.org/api)
 
 ---
 ## Roles
@@ -25,3 +24,5 @@ Candidate data source(s):
 | Clover   |  Frontend Lead |
 |  Clinton | Assets Manager |
 
+----
+Live Link: https://arc-labs-periodic-table.vercel.app/ 
