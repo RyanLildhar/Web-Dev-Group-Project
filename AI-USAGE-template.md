@@ -62,3 +62,16 @@ Also drop a marker where the code lives: `// AI-assisted - see AI-USAGE.md #<n>`
   ```
 
 - **What it produced & what I changed:**  Produced CompareModal.test.jsx, I did not edit the file but I installed and added dev dependencies and configured the Vite config file
+
+
+### #3 - Favourites Unit Testing
+- **Date:** 2026-11-24
+- **Member:** <your name>
+- **Tool / model:** Claude (<free tier / model name, check the policy>)
+- **Files:** `src/features/favourites/Favourites.test.jsx`
+- **Prompt (verbatim):**
+
+  ```
+Generate a Vitest test file for the FavouriteButton, FavouritesPage, and useFavourites hook using React Testing Library. Test saving and removing favourites, button states, click events, displaying saved elements in the correct order, and showing an empty message. Test that favourites are saved to and loaded from localStorage, including handling invalid or corrupted data.  ```
+
+- **What it produced & what I changed:** Produced tests for FavouriteButton, FavouritesPage and the useFavourites hook, first as three files and then merged into one file on request. The first run failed because vitest doesn't auto-clean rendered components, so I added `afterEach(cleanup)` and scoped the page queries with `within(container)`. All tests pass with `npm test`.
